@@ -13,12 +13,14 @@ import 'package:provider/provider.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
+      statusBarColor: Color.fromARGB(255, 44, 44, 44), // Transparent status bar
+    statusBarIconBrightness: Brightness.light // Light icons for contrast
     ),
   );
   runApp(ChangeNotifierProvider(
       create: (context) => MainViewModel(), child: const MyApp()));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,7 +39,8 @@ class MyApp extends StatelessWidget {
             //primaryColor: Colors.blue,
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.purple, primary: Colors.blue
+                seedColor: Colors.purple,
+                primary: const Color.fromARGB(255, 4, 5, 5)
                 // ···
                 //brightness: Brightness.wh,
                 ),
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
               //displaySmall: GoogleFonts.pacifico(),
             ),
             appBarTheme: AppBarTheme(
-                backgroundColor: const Color.fromARGB(255, 74, 168, 245),
+                backgroundColor: Color.fromARGB(255, 7, 8, 8),
                 titleTextStyle: TextStyle(color: Colors.white, fontSize: 25))));
   }
 }

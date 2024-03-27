@@ -1,26 +1,37 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
+// ignore_for_file: no_leading_underscores_for_local_identifier
+import 'package:blog_poster/Util/AppBar_view.dart';
+import 'package:blog_poster/Util/Viewmodel.dart';
 import 'package:blog_poster/View/Home_view.dart';
 import 'package:blog_poster/View/Profile_view.dart';
 import 'package:blog_poster/View/Search_view.dart';
+import 'package:blog_poster/Viewmodel/Home_viewmodel.dart';
+import 'package:blog_poster/Viewmodel/Profile_viewmodel.dart';
+import 'package:blog_poster/Viewmodel/Search_viewmode.dart';
 import 'package:flutter/material.dart';
 
 class MainViewModel extends ChangeNotifier {
-  int index = 1;
-
-  final List pages = [HomeBody(), SearchBody(), ProfileBody()];
+  int index = 0;
+  BuildContext? context;
+  final List bodies = [HomeBody(), SearchBody(), ProfileBody()];
   final List<PreferredSizeWidget> appBars = [
     HomeAppBar(),
     SearchAppBar(),
     ProfileAppBar()
   ];
 
-  PreferredSizeWidget getCurrentAppBar() {
-    print(index);
-    return appBars[index];
-  }
+  final List<Viewmodel> viewModel = [
+    Home_viewmodel(),
+    Search_viewmodel(),
+    Profile_viewmodel()
+  ];
 
-  Widget getCurrentPage() => pages[index];
+  PreferredSizeWidget getCurrentAppBar() => appBars[index];
+
+  Viewmodel getCurrentViewModel() => viewModel[index];
+
+  void setContext(BuildContext context) => this.context = context;
+
+  Widget getCurrentBody() => bodies[index];
 
   void navigateBottomBar(int _index) {
     index = _index;
