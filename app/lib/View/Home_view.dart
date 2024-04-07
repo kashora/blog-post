@@ -24,6 +24,7 @@ class HomeAppBar extends CustomizableAppBar {
                     icon: Icon(Icons.menu),
                     color: Colors.white,
                     onPressed: () {
+                      print('open drawer');
                       Scaffold.of(context).openDrawer();
                     },
                   )),

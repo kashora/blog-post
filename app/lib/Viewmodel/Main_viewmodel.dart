@@ -13,27 +13,31 @@ class MainViewModel extends ChangeNotifier {
   int index = 0;
   BuildContext? context;
   final List bodies = [HomeBody(), SearchBody(), ProfileBody()];
-  final List<PreferredSizeWidget> appBars = [
+  /*final List<PreferredSizeWidget> appBars = [
     HomeAppBar(),
     SearchAppBar(),
     ProfileAppBar()
   ];
-
-  final List<Viewmodel> viewModel = [
+*/
+  final List<BaseViewModel> viewModel = [
     Home_viewmodel(),
-    Search_viewmodel(),
+    SearchViewModel(),
     Profile_viewmodel()
   ];
 
-  PreferredSizeWidget getCurrentAppBar() => appBars[index];
+  // PreferredSizeWidget getCurrentAppBar() => appBars[index];
 
-  Viewmodel getCurrentViewModel() => viewModel[index];
+  BaseViewModel getCurrentViewModel() {
+    print('get_currentViewmode');
+    return viewModel[index];
+  }
 
   void setContext(BuildContext context) => this.context = context;
 
   Widget getCurrentBody() => bodies[index];
 
   void navigateBottomBar(int _index) {
+    print('index');
     index = _index;
     //print(index);
     notifyListeners();

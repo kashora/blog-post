@@ -34,66 +34,63 @@ class _MainPageState extends State<MainPage> {
     _viewModel.setContext(context);
     return SafeArea(
       child: Consumer<MainViewModel>(builder: (context, viewModel, child) {
-        return Scaffold(
-            drawer: Drawer(
-              width: 200,
-              child: ListView(
-                // Important: Remove any padding from the ListView.
-                padding: EdgeInsets.zero,
-                children: [
-                  const DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                    ),
-                    // decoration: Decoration.,
-                    child: Center(
-                      child: Text('Blog\nPoster',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontStyle: FontStyle.italic)),
-                    ),
+        return ChangeNotifierProvider(
+            create: (context) => _viewModel.getCurrentViewModel(),
+            child: Scaffold(
+                drawer: Drawer(
+                  width: 200,
+                  child: ListView(
+                    // Important: Remove any padding from the ListView.
+                    padding: EdgeInsets.zero,
+                    children: [
+                      const DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                        ),
+                        // decoration: Decoration.,
+                        child: Center(
+                          child: Text('Blog\nPoster',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 50,
+                                  fontStyle: FontStyle.italic)),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.settings),
+                        title: Text('Settings'),
+                        onTap: () {
+                          // Update the state of the app.
+                          // ...
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Item 2'),
+                        onTap: () {
+                          // Update the state of the app.
+                          // ...
+                        },
+                      ),
+                    ],
                   ),
-                  ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Item 2'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                ],
-              ),
-            ),
+                ),
 
-            //  appBar: _viewModel.getCurrentAppBar(), //_appBar[_index],
+                //  appBar: _viewModel.getCurrentAppBar(), //_appBar[_index],
 
-            body: ChangeNotifierProvider<Viewmodel>(
-                create: (context) {
-                  return _viewModel.getCurrentViewModel();
-                },
-                child: Scaffold(
-                    appBar: _viewModel.getCurrentAppBar(),
-                    body: _viewModel.getCurrentBody())),
-            bottomNavigationBar: BottomNavigationBar(
-                onTap: _viewModel.navigateBottomBar,
-                currentIndex: _viewModel.index,
-                selectedItemColor: Colors.black,
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: "Home"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.search), label: "Search"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.person), label: "Profile")
-                ]));
+                // appBar: _viewModel.getCurrentAppBar(),
+                body: _viewModel.getCurrentBody(),
+                bottomNavigationBar: BottomNavigationBar(
+                    onTap: _viewModel.navigateBottomBar,
+                    currentIndex: _viewModel.index,
+                    selectedItemColor: Colors.black,
+                    items: [
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.home), label: "Home"),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.search), label: "Search"),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.person), label: "Profile")
+                    ])));
       }),
     );
   }

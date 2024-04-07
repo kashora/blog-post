@@ -1,15 +1,36 @@
+import 'dart:async';
+
 import 'package:blog_poster/Util/Viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 
-class Search_viewmodel extends Viewmodel {
+class SearchViewModel extends BaseViewModel {
   String _text = '1234';
   String get_text() => _text;
 
-  void search(String text) {
-    //print the id of the search_viewmodel
-    print(this.hashCode);
+  final TextEditingController searchController = TextEditingController();
+  bool _writting = false;
+  bool get writting => _writting;
+  final FocusNode searchFocusNode = FocusNode();
+
+  void search() {
+    final text = searchController.text;
     _text = text;
-    print(get_text());
     notifyListeners();
+    search2(text);
   }
+
+  void search2(String text) {
+    print(text);
+  }
+
+  FutureOr<void> init() async {
+    searchFocusNode.addListener(() {
+      _writting = searchFocusNode.hasFocus;
+      notifyListeners();
+    });
+    print('Search_viewmodel init');
+    //changeStatus();
+  }
+
+  late String errorMessage;
 }
