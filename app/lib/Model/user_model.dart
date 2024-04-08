@@ -2,9 +2,9 @@ import 'package:blog_poster/Util/Image_util.dart';
 import 'package:flutter/widgets.dart';
 
 class UserModel {
-  int? id;
-  String? name;
-  String? email;
+  int id;
+  String name;
+  String email;
   Image userImage; // ! Todo: add the image
   //String? imageLink;
 
@@ -21,6 +21,7 @@ class UserModel {
       email: json['email'],
       //imageLink: json['userImage']
       userImage: imageFromBase64String(json['image']),
+      //userImage: Image.asset('assets/images/fixation_cross.jpeg'),
     );
   }
   Map<String, dynamic> toJson() => {

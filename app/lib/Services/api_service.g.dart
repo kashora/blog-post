@@ -13,7 +13,7 @@ class _ApiService implements ApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= '127.0.0.1';
+    baseUrl ??= 'http://192.168.1.114:5000';
   }
 
   final Dio _dio;
@@ -57,7 +57,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              'blog',
+              '/blogs',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -80,7 +80,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              'blogs',
+              '/blogs',
               queryParameters: queryParameters,
               data: _data,
             )

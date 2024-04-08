@@ -14,7 +14,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   FutureOr<void> init() async {
-    print('Search_viewmodel init');
+    //print('Search_viewmodel init');
     //changeStatus();
   }
 }
