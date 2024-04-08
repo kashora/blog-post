@@ -1,4 +1,5 @@
 import base64
+import random
 from flask import Flask, jsonify
 import json
 app = Flask(__name__)
@@ -36,7 +37,7 @@ class Blog:
         }
     
 
-
+genres = ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Fantasy', 'Historical', 'Horror', 'Mystery', 'Philosophical', 'Political', 'Romance', 'Saga', 'Satire', 'Science fiction', 'Social', 'Speculative', 'Thriller', 'Urban', 'Western']
 
 blogs = []
 users = []
@@ -55,7 +56,8 @@ for i in range(5):
   blog_content = str(i) + " ".join(["word"+str(j) for j in range(100)])
 
   blog_owner = user
-  blog_keywords = ["keywords"]
+  random.shuffle(genres)
+  blog_keywords = [genres[i] for i in range(5)]
   blog = Blog(blog_id, blog_title, blog_content, blog_owner, blog_keywords)
   blogs.append(blog)
 

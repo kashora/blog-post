@@ -21,30 +21,25 @@ class HomePage extends StatelessWidget {
 
   Widget _buildScreen(BuildContext context, HomeViewModel vm) => Scaffold(
       appBar: CustomizableAppBar(
-          child: Row(
-        children: [
-          Flexible(
-              flex: 1,
-              child: IconButton(
+          child: Row(children: [
+        Flexible(
+            flex: 1,
+            child: IconButton(
                 icon: Icon(Icons.menu),
                 color: Colors.white,
                 onPressed: () {
                   print('open drawer');
                   Scaffold.of(context).openDrawer();
-                },
-              )),
-          Flexible(
-              flex: 3,
-              child: Text(
-                "Home",
+                })),
+        Flexible(
+            flex: 3,
+            child: Text("Home",
                 style: TextStyle(
                     color: Colors.white,
                     //fontStyle: FontStyle.italic,
                     fontSize: 30,
-                    fontWeight: FontWeight.w300),
-              )),
-        ],
-      )),
+                    fontWeight: FontWeight.w300)))
+      ])),
       body: vm.isInitialized
           ? _body(vm) //Center(child: Text('test'))
           : Container(
@@ -68,47 +63,43 @@ class HomePage extends StatelessWidget {
         });
   }
 
-  Widget _blogs(List<BlogModel> blogs) => ListView.builder(
-      itemCount: blogs.length,
-      itemBuilder: (context, index) => _blog(blogs[index]));
+  Widget _blogs(List<BlogModel> blogs) => Padding(
+      padding: const EdgeInsets.fromLTRB(0, 3.0, 0, 0),
+      child: ListView.builder(
+          itemCount: blogs.length,
+          itemBuilder: (context, index) => _blog(blogs[index])));
 
-  Widget _blog(BlogModel blog) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
+  Widget _blog(BlogModel blog) => InkWell(
+      onTap: () {
+        print('test');
+      },
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
+          child: Column(children: [
             Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  blog.title,
-                  style: TextStyle(fontSize: 20),
-                )),
-            Row(
-              children: [
-                Padding(
+                child: Text(blog.title, style: TextStyle(fontSize: 20))),
+            Row(children: [
+              Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 0, 4, 0),
                   child: Flexible(
                       flex: 1,
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                              backgroundImage: blog.owner.userImage.image),
-                          Text(blog.owner.name)
-                        ],
-                      )),
-                ),
-                Flexible(
+                      child: Column(children: [
+                        CircleAvatar(
+                            backgroundImage: blog.owner.userImage.image),
+                        Text(blog.owner.name)
+                      ]))),
+              Flexible(
                   flex: 3,
                   child: Column(children: [
                     Container(
                         width: 330,
                         height: 50,
-                        child: Text(
-                          blog.content,
-                          softWrap: true,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 12),
-                        )),
+                        child: Text(blog.content,
+                            softWrap: true,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 12))),
                     SizedBox(height: 6),
                     Container(
                         height: 25,
@@ -118,28 +109,27 @@ class HomePage extends StatelessWidget {
                             itemCount: blog.keyWords.length,
                             itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.fromLTRB(0, 1, 7, 0),
-                                child: InkWell(
-                                    borderRadius: BorderRadius.circular(10),
-                                    onTap: () {
-                                      print('test');
-                                    },
-                                    child: Ink(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(3, 1, 3, 1),
-                                      child: Text(blog.keyWords[index]),
-                                      decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Color.fromARGB(
-                                              181, 240, 233, 169)),
-                                    )))))
-                  ]),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
+                                child: Material(
+                                    child: InkWell(
+                                        // if the inkwell outside the container, the inkwell will not work
+
+                                        borderRadius: BorderRadius.circular(10),
+                                        onTap: () {
+                                          print('test');
+                                        },
+                                        child: Ink(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                3, 1, 3, 1),
+                                            child: Text(blog.keyWords[index]),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.black),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Color.fromARGB(
+                                                    181, 240, 233, 169))))))))
+                  ]))
+            ]),
+            Divider(color: Colors.black)
+          ])));
 }
