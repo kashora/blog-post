@@ -73,8 +73,8 @@ class HomePage extends StatelessWidget {
       itemBuilder: (context, index) => _blog(blogs[index]));
 
   Widget _blog(BlogModel blog) => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
           children: [
             Align(
                 alignment: Alignment.centerLeft,
@@ -115,7 +115,7 @@ class HomePage extends StatelessWidget {
                         width: 330,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 3,
+                            itemCount: blog.keyWords.length,
                             itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.fromLTRB(0, 1, 7, 0),
                                 child: InkWell(
@@ -128,10 +128,12 @@ class HomePage extends StatelessWidget {
                                           const EdgeInsets.fromLTRB(3, 1, 3, 1),
                                       child: Text('test'),
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.black),
-                                          borderRadius: BorderRadius.circular(10),
-                                          color:
-                                              Color.fromARGB(181, 240, 233, 169)),
+                                          border:
+                                              Border.all(color: Colors.black),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Color.fromARGB(
+                                              181, 240, 233, 169)),
                                     )))))
                   ]),
                 ),
@@ -139,5 +141,5 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-  );
+      );
 }
