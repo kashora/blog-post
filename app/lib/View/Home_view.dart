@@ -126,7 +126,7 @@ class HomePage extends StatelessWidget {
                                     child: Ink(
                                       padding:
                                           const EdgeInsets.fromLTRB(3, 1, 3, 1),
-                                      child: Text('test'),
+                                      child: Text(blog.keyWords[index]),
                                       decoration: BoxDecoration(
                                           border:
                                               Border.all(color: Colors.black),
