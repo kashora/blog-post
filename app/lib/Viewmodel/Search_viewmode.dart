@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:blog_poster/Util/Viewmodel.dart';
+import 'package:blog_poster/Util/view_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class SearchViewModel extends BaseViewModel {

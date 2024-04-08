@@ -1,11 +1,9 @@
-import 'package:blog_poster/Util/AppBar_view.dart';
-import 'package:blog_poster/Util/View.dart';
-import 'package:blog_poster/Util/Viewmodel.dart';
-import 'package:blog_poster/Viewmodel/Search_viewmode.dart';
+import 'package:blog_poster/Util/appBar_view.dart';
+import 'package:blog_poster/Util/view.dart';
+import 'package:blog_poster/Viewmodel/search_viewmode.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class SearchBody extends StatelessWidget {
+class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SearchViewModel>(
         vmBuilder: (context) => SearchViewModel(), builder: _buildScreen);
@@ -23,7 +21,8 @@ class SearchBody extends StatelessWidget {
                 })),
         Flexible(
             flex: 3,
-            child: Container(
+            child: Padding(
+                padding: EdgeInsets.all(6),
                 //color: Colors.white,
                 child: TextField(
                     controller: vm.searchController,
@@ -33,14 +32,16 @@ class SearchBody extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
                         hintText: "Search",
                         hintStyle: TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 204, 204, 204),
                             fontSize: 20,
                             fontStyle: FontStyle.italic),
-                        contentPadding: EdgeInsets.all(10),
+                        contentPadding: EdgeInsets.all(8),
                         filled: true,
-                        fillColor: Color.fromARGB(96, 209, 209, 209),
+                        fillColor: Color.fromARGB(64, 117, 113, 153),
                         suffixIcon: IconButton(
                             onPressed: () => vm.writting
                                 ? vm.searchController.clear()
@@ -49,8 +50,12 @@ class SearchBody extends StatelessWidget {
                                 Icon(vm.writting ? Icons.close : Icons.search),
                             color: Colors.white)))))
       ])),
-      body: Row(children: [
-        Center(child: Text(vm.get_text())),
-        ElevatedButton(onPressed: () => vm.search2('test'), child: Text('test'))
-      ]));
+      body: vm.isInitialized
+          ? Row(children: [
+              Center(child: Text(vm.get_text())),
+              ElevatedButton(onPressed: () => vm.search(), child: Text('test'))
+            ])
+          : Container(
+              color: Colors.white,
+              child: Center(child: CircularProgressIndicator())));
 }

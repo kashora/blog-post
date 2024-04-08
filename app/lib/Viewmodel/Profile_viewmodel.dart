@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:blog_poster/Util/Viewmodel.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:blog_poster/Util/view_model.dart';
 
-class Profile_viewmodel extends BaseViewModel {
+class ProfileViewModel extends BaseViewModel {
   String _text = '';
   String get text => _text;
 
@@ -14,9 +13,8 @@ class Profile_viewmodel extends BaseViewModel {
     print(text);
   }
 
-  @override
-  FutureOr<void> init() {
-    // TODO: implement init
-    throw UnimplementedError();
+  FutureOr<void> init() async {
+    print('Search_viewmodel init');
+    //changeStatus();
   }
 }

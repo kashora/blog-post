@@ -4,12 +4,7 @@
 
 import 'dart:developer';
 
-import 'package:blog_poster/Util/Viewmodel.dart';
-import 'package:blog_poster/View/Home_view.dart';
-import 'package:blog_poster/View/Profile_view.dart';
-import 'package:blog_poster/View/Search_view.dart';
-import 'package:blog_poster/Viewmodel/Main_viewmodel.dart';
-import 'package:blog_poster/Viewmodel/Search_viewmode.dart';
+import 'package:blog_poster/Viewmodel/main_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -78,7 +73,7 @@ class _MainPageState extends State<MainPage> {
                 //  appBar: _viewModel.getCurrentAppBar(), //_appBar[_index],
 
                 // appBar: _viewModel.getCurrentAppBar(),
-                body: _viewModel.getCurrentBody(),
+                body: _viewModel.getCurrentPage(),
                 bottomNavigationBar: BottomNavigationBar(
                     onTap: _viewModel.navigateBottomBar,
                     currentIndex: _viewModel.index,

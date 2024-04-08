@@ -1,4 +1,4 @@
-import 'package:blog_poster/Util/Viewmodel.dart';
+import 'package:blog_poster/Util/view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,14 +29,15 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
 
   Widget _buildScreenContent(
           BuildContext context, T viewModel, Widget? child) =>
-      !viewModel.isInitialized
+      /*!viewModel.isInitialized
           ? Container(
               color: Colors.white,
               child: Center(
                 child: CircularProgressIndicator(),
               ),
-            )
-          : Stack(
+            ): */ // ! may need to return this but currently remove to remove the loading affect when changing page
+          
+           Stack(
               children: [
                 widget.builder(context, viewModel),
                 Visibility(

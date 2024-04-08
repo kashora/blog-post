@@ -2,8 +2,8 @@
 
 import 'dart:ui';
 
-import 'package:blog_poster/View/Main_view.dart';
-import 'package:blog_poster/Viewmodel/Main_viewmodel.dart';
+import 'package:blog_poster/View/main_view.dart';
+import 'package:blog_poster/Viewmodel/main_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';

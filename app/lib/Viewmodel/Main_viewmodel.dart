@@ -1,28 +1,22 @@
 // ignore_for_file: no_leading_underscores_for_local_identifier
-import 'package:blog_poster/Util/AppBar_view.dart';
-import 'package:blog_poster/Util/Viewmodel.dart';
-import 'package:blog_poster/View/Home_view.dart';
-import 'package:blog_poster/View/Profile_view.dart';
-import 'package:blog_poster/View/Search_view.dart';
-import 'package:blog_poster/Viewmodel/Home_viewmodel.dart';
-import 'package:blog_poster/Viewmodel/Profile_viewmodel.dart';
-import 'package:blog_poster/Viewmodel/Search_viewmode.dart';
+import 'package:blog_poster/Util/view_model.dart';
+import 'package:blog_poster/View/home_view.dart';
+import 'package:blog_poster/View/profile_view.dart';
+import 'package:blog_poster/View/search_view.dart';
+import 'package:blog_poster/Viewmodel/home_viewmodel.dart';
+import 'package:blog_poster/Viewmodel/profile_viewmodel.dart';
+import 'package:blog_poster/Viewmodel/search_viewmode.dart';
 import 'package:flutter/material.dart';
 
 class MainViewModel extends ChangeNotifier {
   int index = 0;
   BuildContext? context;
-  final List bodies = [HomeBody(), SearchBody(), ProfileBody()];
-  /*final List<PreferredSizeWidget> appBars = [
-    HomeAppBar(),
-    SearchAppBar(),
-    ProfileAppBar()
-  ];
-*/
+  final List Pages = [HomePage(), SearchPage(), ProfilePage()];
+
   final List<BaseViewModel> viewModel = [
-    Home_viewmodel(),
+    HomeViewModel(),
     SearchViewModel(),
-    Profile_viewmodel()
+    ProfileViewModel()
   ];
 
   // PreferredSizeWidget getCurrentAppBar() => appBars[index];
@@ -34,7 +28,7 @@ class MainViewModel extends ChangeNotifier {
 
   void setContext(BuildContext context) => this.context = context;
 
-  Widget getCurrentBody() => bodies[index];
+  Widget getCurrentPage() => Pages[index];
 
   void navigateBottomBar(int _index) {
     print('index');
