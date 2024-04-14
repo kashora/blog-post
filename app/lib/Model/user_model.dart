@@ -15,12 +15,16 @@ class UserModel {
       required this.userImage});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    var imageLink = json['imageLink'];
+    //print(imageLink);
     return UserModel(
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      //imageLink: json['userImage']
-      userImage: imageFromBase64String(json['image']),
+
+      userImage: imageLink != null
+          ? Image.network(imageLink)
+          : Image.asset('assets/images/blank_avatar.jpg'),
       //userImage: Image.asset('assets/images/fixation_cross.jpeg'),
     );
   }

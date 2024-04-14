@@ -33,23 +33,7 @@ class SearchViewModel extends BaseViewModel {
     //changeStatus();
   }
 
-  void api_call() async {
-    try {
-      ApiClient client = ApiClient();
-      // check if the server is running
-
-      final response = await client.getBlog(0);
-
-      print(response);
-      if (response != null) {
-        //posts = response;
-        notifyListeners();
-      }
-    } catch (e) {
-      errorMessage = e.toString();
-      notifyListeners();
-    }
-  }
+  
 
   late String errorMessage;
 }

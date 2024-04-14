@@ -53,7 +53,8 @@ class SearchPage extends StatelessWidget {
       body: vm.isInitialized
           ? Row(children: [
               Center(child: Text(vm.get_text())),
-              ElevatedButton(onPressed: () => vm.api_call(), child: Text('test'))
+              ElevatedButton(
+                  onPressed: () => print('button pressed'), child: Text('test'))
             ])
           : Container(
               color: Colors.white,

@@ -23,7 +23,7 @@ class _ApiService implements ApiService {
   @override
   Future<UserModel> getUser(UserId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'id': UserId};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -34,7 +34,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              'user',
+              '/user',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -46,7 +46,7 @@ class _ApiService implements ApiService {
   @override
   Future<BlogModel> getBlog(BlogId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'id': BlogId};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -57,7 +57,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              '/blogs',
+              '/blog',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -68,27 +68,51 @@ class _ApiService implements ApiService {
 
   @override
   Future<List<BlogModel>> getBlogs() async {
+    print('call blogs');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<BlogModel>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/blogs',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => BlogModel.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
+    List<BlogModel> blogList = [tempBlog()];
+
+    try {
+      final _result = await _dio
+          .fetch<List<dynamic>>(_setStreamType<List<BlogModel>>(Options(
+        method: 'GET',
+        headers: _headers,
+        extra: _extra,
+      )
+              .compose(
+                _dio.options,
+                '/blogs',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+      var value = _result.data!;
+      blogList = [];
+      for (var i = 0; i < value.length; i++) {
+        blogList.add(BlogModel.fromJson(value[i]));
+      }
+    } catch (e) {
+      print(e);
+    }
+    //print('test');
+
+    return blogList;
+  }
+
+  BlogModel tempBlog() {
+    return BlogModel(
+        id: 1,
+        title: 'test',
+        content: 'test',
+        owner: UserModel(
+            id: 1,
+            name: 'test',
+            email: 'test',
+            userImage: Image.asset('assets/images/fixation_cross.jpeg')),
+        keyWords: ['test']);
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

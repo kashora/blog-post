@@ -22,36 +22,3 @@ abstract class ApiService {
   @GET('/blogs')
   Future<List<BlogModel>> getBlogs();
 }
-
-class ApiClient {
-  final Dio dio = Dio();
-
-  Future<BlogModel> getBlog(int id) async {
-    print('22');
-
-    final response =
-        await http.get(Uri.parse('http://192.168.1.114:5000/blogs'));
-    print(response.statusCode);
-    BlogModel tempBlog = BlogModel(
-        id: 0,
-        title: 'title',
-        content: 'content',
-        owner: UserModel(
-            id: 0,
-            name: 'name',
-            email: 'email',
-            userImage: Image.asset('assets/images/fixation_cross.jpeg')),
-        keyWords: ['keyWords']);
-
-    if (response.statusCode == 200) {
-      print(response.statusCode);
-
-      //print(UserModel.fromJson(jsonDecode(response.body)['owner']));
-      BlogModel tempBlog = BlogModel.fromJson(jsonDecode(response.body));
-      return tempBlog;
-    } else {
-      print('test');
-      return tempBlog;
-    }
-  }
-}
