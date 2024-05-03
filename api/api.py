@@ -4,18 +4,18 @@ from flask import Flask, jsonify
 import json
 app = Flask(__name__)
 class User: 
-    def __init__(self, id, name, email, image):
+    def __init__(self, id, name, email, imageLink = None):
       self.id = id
       self.name = name
       self.email = email
-      self.image = image
+      self.imageLink = imageLink
 
     def serialize(self):
       return {
           'id': self.id,
           'name': self.name,
           'email': self.email,
-          'image': self.image
+          'imageLink': self.imageLink
       }
 
 
@@ -45,15 +45,15 @@ for i in range(5):
   user_id = i
   user_name = "user"+str(i)
   user_email = "user"
-  with open('fixation_cross.jpeg', 'rb') as image_file:
-    encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
-  user_image = encoded_image
-  user = User(user_id, user_name, user_email, user_image)
+  user = User(user_id, user_name, user_email)
+  if i == 1:
+     user.imageLink = "https://media.istockphoto.com/id/1327592449/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=yqoos7g9jmufJhfkbQsk-mdhKEsih6Di4WZ66t_ib7I="
   users.append(user)
+  print(user.serialize())
   blog_id = i
   blog_title = "blog"+str(i)
   #generate random content with 100 words
-  blog_content = str(i) + " ".join(["word"+str(j) for j in range(100)])
+  blog_content = str(i) + " ".join(["word"+str(j) for j in range(1000)])
 
   blog_owner = user
   random.shuffle(genres)
@@ -64,8 +64,22 @@ for i in range(5):
 
 @app.route('/blogs', methods=['GET'])
 def get_blogs():
-    return jsonify(blogs[0].serialize())
-    #return jsonify({i: blogs[i].serialize() for i in range(len(blogs))})
+    #return jsonify([blogs[0].serialize()])
+    return jsonify([blogs[i].serialize() for i in range(len(blogs))])
+
+from flask import request
+
+@app.route('/blog', methods=['GET'])
+def get_blog():
+    blog_id = request.args.get('id', type=int)
+    if blog_id is None:
+        return jsonify({'error': 'Blog ID not provided'})
+    for blog in blogs:
+        if blog.id == blog_id:
+            return jsonify(blog.serialize())
+    return jsonify({'error': 'Blog not found'})
+
+
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
   for user in users:
